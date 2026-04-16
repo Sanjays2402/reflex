@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Leaderboard — Reflex</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body class="leaderboard-body">
+  <header class="lb-header">
+    <a href="/" class="back-link">← Back</a>
+    <h1>🏆 Leaderboard</h1>
+    <div class="lb-sub">fastest reactions of all time</div>
+  </header>
+  <div class="lb-container">
+    <table class="lb-table" id="lb-table">
+      <thead>
+        <tr><th>#</th><th>Name</th><th>Best</th><th>Wins</th></tr>
+      </thead>
+      <tbody id="lb-body">
+        <tr><td colspan="4" class="lb-empty">Loading…</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <script>
+    fetch('/api/leaderboard').then(r => r.json()).then(rows => {
+      const tbody = document.getElementById('lb-body');
+      if (!rows.length) {
+        tbody.innerHTML = '<tr><td colspan="4" class="lb-empty">No games played yet. Go duel someone.</td></tr>';
+        return;
+      }
+      tbody.innerHTML = rows.map((r, i) => {
+        const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : '';
+        return `<tr>
+          <td class="rank">${medal || (i + 1)}</td>
+          <td class="name">${escape(r.name)}</td>
+          <td class="mono">${r.best_ms}ms</td>
+          <td class="mono dim">${r.wins}</td>
+        </tr>`;
+      }).join('');
+    }).catch(() => {
+      document.getElementById('lb-body').innerHTML = '<tr><td colspan="4" class="lb-empty">Failed to load.</td></tr>';
+    });
+
+    function escape(s) {
+      return String(s).replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+    }
+  </script>
+</body>
+</html>

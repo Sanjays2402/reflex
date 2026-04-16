@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <meta name="color-scheme" content="dark" />
+  <title>Reflex — duel by milliseconds</title>
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>" />
+</head>
+<body>
+  <!-- HOME -->
+  <section id="screen-home" class="screen active">
+    <div class="brand">
+      <div class="logo">⚡</div>
+      <h1>Reflex</h1>
+      <p class="tagline">duel by milliseconds</p>
+    </div>
+
+    <div class="card">
+      <label class="field">
+        <span>Your name</span>
+        <input id="name-input" type="text" maxlength="20" placeholder="Lightning Fingers" autocomplete="off" />
+      </label>
+
+      <div class="actions">
+        <button id="btn-create" class="btn primary">
+          <span>Create room</span>
+          <kbd>⏎</kbd>
+        </button>
+        <div class="divider"><span>or</span></div>
+        <div class="join-row">
+          <input id="code-input" type="text" maxlength="4" placeholder="CODE" spellcheck="false" />
+          <button id="btn-join" class="btn">Join</button>
+        </div>
+      </div>
+    </div>
+
+    <a href="/leaderboard.html" class="link-leaderboard">🏆 Leaderboard →</a>
+  </section>
+
+  <!-- LOBBY -->
+  <section id="screen-lobby" class="screen">
+    <div class="room-code">
+      <span class="label">ROOM CODE</span>
+      <div class="code-display" id="code-display">————</div>
+      <button class="btn-copy" id="btn-copy">Copy</button>
+    </div>
+
+    <div class="players">
+      <div class="player-card" id="p1-card">
+        <div class="slot-num">P1</div>
+        <div class="player-name" id="p1-name">—</div>
+        <div class="status" id="p1-status">waiting</div>
+      </div>
+      <div class="vs">vs</div>
+      <div class="player-card" id="p2-card">
+        <div class="slot-num">P2</div>
+        <div class="player-name" id="p2-name">empty slot</div>
+        <div class="status" id="p2-status">—</div>
+      </div>
+    </div>
+
+    <button id="btn-ready" class="btn primary big" disabled>Ready up</button>
+    <div class="hint" id="lobby-hint">Share the code to invite a friend</div>
+  </section>
+
+  <!-- MATCH -->
+  <section id="screen-match" class="screen">
+    <div class="match-area" id="match-area">
+      <div class="match-state" id="match-state">get ready</div>
+      <div class="match-sub" id="match-sub">tap anywhere when you see GO</div>
+    </div>
+  </section>
+
+  <!-- RESULT -->
+  <section id="screen-result" class="screen">
+    <div class="result-card">
+      <div class="result-verdict" id="result-verdict">—</div>
+      <div class="result-time" id="result-time">— ms</div>
+      <div class="result-detail" id="result-detail"></div>
+      <div class="result-actions">
+        <button id="btn-rematch" class="btn primary">Rematch</button>
+        <button id="btn-home" class="btn ghost">Home</button>
+      </div>
+    </div>
+  </section>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="/app.js"></script>
+</body>
+</html>
